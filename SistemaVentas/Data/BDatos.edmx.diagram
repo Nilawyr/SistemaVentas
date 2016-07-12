@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3386d1907da46a1bae4a1973862252b" Name="Diagrama1" ZoomLevel="72">
+        <EntityTypeShape EntityType="SisVentasModel.APERTURACAJA" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.CAJERO" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.CLASE" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.COMPRA_DETALLE" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.COMPRAS" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.INVENTARIO" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.INVENTARIO_DETALLE" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.MOVIMIENTOS" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.NATURALEZA" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.PRIVILEGIOS" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.PROVEEDORES" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.SALIDAPRODUCTOS" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.SUBCLASE" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.TIPOPAGO" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.USUARIOS" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.VENTA_DETALLE" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.VENTAS" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SisVentasModel.Naturaleza_Clase" Width="1.5" PointX="1.125" PointY="9.125" />
+        <EntityTypeShape EntityType="SisVentasModel.PRODUCTOS" Width="1.5" PointX="8.75" PointY="11.125" />
+        <EntityTypeShape EntityType="SisVentasModel.UNIDAD_MEDIDA" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="SisVentasModel.ProductosListados" Width="1.5" PointX="11.375" PointY="7.75" />
+        <AssociationConnector Association="SisVentasModel.FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

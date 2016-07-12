@@ -1,0 +1,863 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SisVentasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="APERTURACAJA">
+          <Key>
+            <PropertyRef Name="APERNUM" />
+          </Key>
+          <Property Name="APERNUM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CAJANUMERO" Type="int" Nullable="false" />
+          <Property Name="CAJRUT" Type="int" Nullable="false" />
+          <Property Name="APERFECHA" Type="datetime" Nullable="false" />
+          <Property Name="APERMONTO" Type="int" Nullable="false" />
+          <Property Name="APERSALDO" Type="int" />
+          <Property Name="APERCERRADO" Type="bit" />
+        </EntityType>
+        <EntityType Name="CAJERO">
+          <Key>
+            <PropertyRef Name="CAJRUT" />
+          </Key>
+          <Property Name="CAJRUT" Type="int" Nullable="false" />
+          <Property Name="CAJNOMBRE" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CAJAPATERNO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CAJAMATERNO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CAJESTADO" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLASE">
+          <Key>
+            <PropertyRef Name="CLASEID" />
+          </Key>
+          <Property Name="NATSID" Type="int" Nullable="false" />
+          <Property Name="CLASEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CLASENOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMPRA_DETALLE">
+          <Key>
+            <PropertyRef Name="COMDETID" />
+          </Key>
+          <Property Name="COMDETID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COMPID" Type="int" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="int" Nullable="false" />
+          <Property Name="COMPCANTIDAD" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="COMPCODIGOBARRA" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="COMPMONTOLINEA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMPRAS">
+          <Key>
+            <PropertyRef Name="COMPID" />
+          </Key>
+          <Property Name="COMPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROVRUT" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="CAJRUT" Type="int" Nullable="false" />
+          <Property Name="COMFECHA" Type="datetime" Nullable="false" />
+          <Property Name="COMPFORMAPAGO" Type="tinyint" Nullable="false" />
+          <Property Name="COMPNUMDOCTO" Type="bigint" Nullable="false" />
+          <Property Name="COMPMONTO" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INVENTARIO">
+          <Key>
+            <PropertyRef Name="INVNUMERO" />
+          </Key>
+          <Property Name="INVNUMERO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CAJRUT" Type="int" Nullable="false" />
+          <Property Name="INVFECHA" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INVENTARIO_DETALLE">
+          <Key>
+            <PropertyRef Name="INVLINEA" />
+          </Key>
+          <Property Name="INVLINEA" Type="int" Nullable="false" />
+          <Property Name="INVNUMERO" Type="int" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="int" Nullable="false" />
+          <Property Name="INVCANTIDAD" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="INVCODIGOBARRA" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MOVIMIENTOS">
+          <Key>
+            <PropertyRef Name="MOVNUMERO" />
+          </Key>
+          <Property Name="MOVNUMERO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="APERNUM" Type="int" Nullable="false" />
+          <Property Name="MOVTIPO" Type="int" Nullable="false" />
+          <Property Name="MOVNUMDOCUMENTO" Type="int" />
+          <Property Name="MOVTIPODOCTO" Type="int" />
+          <Property Name="MOVMONTO" Type="int" Nullable="false" />
+          <Property Name="MOVOBSERVACIONES" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="NATURALEZA">
+          <Key>
+            <PropertyRef Name="NATSID" />
+          </Key>
+          <Property Name="NATSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NATNOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRIVILEGIOS">
+          <Key>
+            <PropertyRef Name="PRICODIGO" />
+          </Key>
+          <Property Name="PRICODIGO" Type="int" Nullable="false" />
+          <Property Name="PRINOMBRE" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTOS">
+          <Key>
+            <PropertyRef Name="PRODCODIGO" />
+          </Key>
+          <Property Name="NATSID" Type="int" Nullable="false" />
+          <Property Name="CLASEID" Type="int" Nullable="false" />
+          <Property Name="SUBCLAID" Type="int" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PRODNOMBRE" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="PRODPRECIO" Type="int" />
+          <Property Name="PRODCODIGOBARRA" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PRODSTOCKINICIAL" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="PRODSTOCKACTUAL" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="PRODINVENTARIABLE" Type="bit" Nullable="false" />
+          <Property Name="PRODCONPRECIO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PROVEEDORES">
+          <Key>
+            <PropertyRef Name="PROVRUT" />
+          </Key>
+          <Property Name="PROVRUT" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="PROVRAZON" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PROVDIRECCION" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="PROVTELEFONO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PROVEMAIL" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PROVVENDEDOR" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="PROVFONOVENDEDOR" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SALIDAPRODUCTOS">
+          <Key>
+            <PropertyRef Name="SALID" />
+          </Key>
+          <Property Name="SALID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SALFECHA" Type="datetime" Nullable="false" />
+          <Property Name="CAJRUT" Type="int" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="int" Nullable="false" />
+          <Property Name="SALCODBARRA" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SALCANTIDAD" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="SALOBSERVACION" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUBCLASE">
+          <Key>
+            <PropertyRef Name="SUBCLAID" />
+          </Key>
+          <Property Name="NATSID" Type="int" Nullable="false" />
+          <Property Name="CLASEID" Type="int" Nullable="false" />
+          <Property Name="SUBCLAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUBCLANOMBRE" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPOPAGO">
+          <Key>
+            <PropertyRef Name="TIPPAGOID" />
+          </Key>
+          <Property Name="TIPPAGOID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIPPAGNOMBRE" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UNIDAD_MEDIDA">
+          <Key>
+            <PropertyRef Name="UMCODIGO" />
+          </Key>
+          <Property Name="UMCODIGO" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UMNOMBRE" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="CAJRUT" />
+          </Key>
+          <Property Name="CAJRUT" Type="int" Nullable="false" />
+          <Property Name="PRICODIGO" Type="int" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="USERESTADO" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VENTA_DETALLE">
+          <Key>
+            <PropertyRef Name="VENTADETID" />
+          </Key>
+          <Property Name="VENTADETID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VENTAID" Type="bigint" Nullable="false" />
+          <Property Name="VENTLINEA" Type="int" Nullable="false" />
+          <Property Name="VENTCANTIDAD" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="int" Nullable="false" />
+          <Property Name="VENTCODBARRA" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="VENTTOTLINEA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VENTAS">
+          <Key>
+            <PropertyRef Name="VENTAID" />
+          </Key>
+          <Property Name="VENTAID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIPPAGOID" Type="tinyint" Nullable="false" />
+          <Property Name="CAJRUT" Type="int" Nullable="false" />
+          <Property Name="VENBOLETANUM" Type="int" Nullable="false" />
+          <Property Name="VENTFECHA" Type="datetime" Nullable="false" />
+          <Property Name="VENTOTAL" Type="int" Nullable="false" />
+          <Property Name="VENTACANCELADO" Type="int" Nullable="false" />
+          <Property Name="VENTAVUELTO" Type="int" Nullable="false" />
+          <Property Name="VENBOUCHER" Type="bigint" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SisVentas.dbo.Naturaleza_Clase' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Naturaleza_Clase">
+          <Key>
+            <PropertyRef Name="NATSID" />
+            <PropertyRef Name="CLASEID" />
+            <PropertyRef Name="CLASENOMBRE" />
+            <PropertyRef Name="NATNOMBRE" />
+          </Key>
+          <Property Name="NATSID" Type="int" Nullable="false" />
+          <Property Name="CLASEID" Type="int" Nullable="false" />
+          <Property Name="CLASENOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NATNOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SisVentas.dbo.ProductosListados' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ProductosListados">
+          <Key>
+            <PropertyRef Name="CodNat" />
+            <PropertyRef Name="CodClase" />
+            <PropertyRef Name="CodSubClase" />
+            <PropertyRef Name="CodProducto" />
+            <PropertyRef Name="Producto" />
+            <PropertyRef Name="CodBarra" />
+            <PropertyRef Name="StockInicial" />
+            <PropertyRef Name="StockActual" />
+            <PropertyRef Name="Inventariable" />
+            <PropertyRef Name="Naturaleza" />
+            <PropertyRef Name="Clase" />
+            <PropertyRef Name="SubClase" />
+          </Key>
+          <Property Name="CodNat" Type="int" Nullable="false" />
+          <Property Name="CodClase" Type="int" Nullable="false" />
+          <Property Name="CodSubClase" Type="int" Nullable="false" />
+          <Property Name="CodProducto" Type="int" Nullable="false" />
+          <Property Name="Producto" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Precio" Type="int" />
+          <Property Name="CodBarra" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="StockInicial" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="StockActual" Type="decimal" Precision="5" Scale="1" Nullable="false" />
+          <Property Name="Inventariable" Type="bit" Nullable="false" />
+          <Property Name="Naturaleza" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Clase" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubClase" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA">
+          <End Role="UNIDAD_MEDIDA" Type="Self.UNIDAD_MEDIDA" Multiplicity="1" />
+          <End Role="UNIDAD_MEDIDA1" Type="Self.UNIDAD_MEDIDA" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UNIDAD_MEDIDA">
+              <PropertyRef Name="UMCODIGO" />
+            </Principal>
+            <Dependent Role="UNIDAD_MEDIDA1">
+              <PropertyRef Name="UMCODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SisVentasModelStoreContainer">
+          <EntitySet Name="APERTURACAJA" EntityType="Self.APERTURACAJA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAJERO" EntityType="Self.CAJERO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLASE" EntityType="Self.CLASE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPRA_DETALLE" EntityType="Self.COMPRA_DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPRAS" EntityType="Self.COMPRAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INVENTARIO" EntityType="Self.INVENTARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INVENTARIO_DETALLE" EntityType="Self.INVENTARIO_DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MOVIMIENTOS" EntityType="Self.MOVIMIENTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NATURALEZA" EntityType="Self.NATURALEZA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRIVILEGIOS" EntityType="Self.PRIVILEGIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROVEEDORES" EntityType="Self.PROVEEDORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SALIDAPRODUCTOS" EntityType="Self.SALIDAPRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUBCLASE" EntityType="Self.SUBCLASE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPOPAGO" EntityType="Self.TIPOPAGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UNIDAD_MEDIDA" EntityType="Self.UNIDAD_MEDIDA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Naturaleza_Clase" EntityType="Self.Naturaleza_Clase" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Naturaleza_Clase].[NATSID] AS [NATSID], 
+[Naturaleza_Clase].[CLASEID] AS [CLASEID], 
+[Naturaleza_Clase].[CLASENOMBRE] AS [CLASENOMBRE], 
+[Naturaleza_Clase].[NATNOMBRE] AS [NATNOMBRE]
+FROM [dbo].[Naturaleza_Clase] AS [Naturaleza_Clase]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductosListados" EntityType="Self.ProductosListados" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ProductosListados].[CodNat] AS [CodNat], 
+[ProductosListados].[CodClase] AS [CodClase], 
+[ProductosListados].[CodSubClase] AS [CodSubClase], 
+[ProductosListados].[CodProducto] AS [CodProducto], 
+[ProductosListados].[Producto] AS [Producto], 
+[ProductosListados].[Precio] AS [Precio], 
+[ProductosListados].[CodBarra] AS [CodBarra], 
+[ProductosListados].[StockInicial] AS [StockInicial], 
+[ProductosListados].[StockActual] AS [StockActual], 
+[ProductosListados].[Inventariable] AS [Inventariable], 
+[ProductosListados].[Naturaleza] AS [Naturaleza], 
+[ProductosListados].[Clase] AS [Clase], 
+[ProductosListados].[SubClase] AS [SubClase]
+FROM [dbo].[ProductosListados] AS [ProductosListados]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA" Association="Self.FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA">
+            <End Role="UNIDAD_MEDIDA" EntitySet="UNIDAD_MEDIDA" />
+            <End Role="UNIDAD_MEDIDA1" EntitySet="UNIDAD_MEDIDA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SisVentasModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="SisVentasEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="APERTURACAJA" EntityType="SisVentasModel.APERTURACAJA" />
+          <EntitySet Name="CAJERO" EntityType="SisVentasModel.CAJERO" />
+          <EntitySet Name="CLASE" EntityType="SisVentasModel.CLASE" />
+          <EntitySet Name="COMPRA_DETALLE" EntityType="SisVentasModel.COMPRA_DETALLE" />
+          <EntitySet Name="COMPRAS" EntityType="SisVentasModel.COMPRAS" />
+          <EntitySet Name="INVENTARIO" EntityType="SisVentasModel.INVENTARIO" />
+          <EntitySet Name="INVENTARIO_DETALLE" EntityType="SisVentasModel.INVENTARIO_DETALLE" />
+          <EntitySet Name="MOVIMIENTOS" EntityType="SisVentasModel.MOVIMIENTOS" />
+          <EntitySet Name="NATURALEZA" EntityType="SisVentasModel.NATURALEZA" />
+          <EntitySet Name="PRIVILEGIOS" EntityType="SisVentasModel.PRIVILEGIOS" />
+          <EntitySet Name="PROVEEDORES" EntityType="SisVentasModel.PROVEEDORES" />
+          <EntitySet Name="SALIDAPRODUCTOS" EntityType="SisVentasModel.SALIDAPRODUCTOS" />
+          <EntitySet Name="SUBCLASE" EntityType="SisVentasModel.SUBCLASE" />
+          <EntitySet Name="TIPOPAGO" EntityType="SisVentasModel.TIPOPAGO" />
+          <EntitySet Name="USUARIOS" EntityType="SisVentasModel.USUARIOS" />
+          <EntitySet Name="VENTA_DETALLE" EntityType="SisVentasModel.VENTA_DETALLE" />
+          <EntitySet Name="VENTAS" EntityType="SisVentasModel.VENTAS" />
+          <EntitySet Name="Naturaleza_Clase" EntityType="SisVentasModel.Naturaleza_Clase" />
+          <EntitySet Name="PRODUCTOS" EntityType="SisVentasModel.PRODUCTOS" />
+          <EntitySet Name="UNIDAD_MEDIDA" EntityType="SisVentasModel.UNIDAD_MEDIDA" />
+          <EntitySet Name="ProductosListados" EntityType="SisVentasModel.ProductosListados" />
+          <AssociationSet Name="FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA" Association="SisVentasModel.FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA">
+            <End Role="UNIDAD_MEDIDA" EntitySet="UNIDAD_MEDIDA" />
+            <End Role="UNIDAD_MEDIDA1" EntitySet="UNIDAD_MEDIDA" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="APERTURACAJA">
+          <Key>
+            <PropertyRef Name="APERNUM" />
+          </Key>
+          <Property Name="APERNUM" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CAJANUMERO" Type="Int32" Nullable="false" />
+          <Property Name="CAJRUT" Type="Int32" Nullable="false" />
+          <Property Name="APERFECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="APERMONTO" Type="Int32" Nullable="false" />
+          <Property Name="APERSALDO" Type="Int32" />
+          <Property Name="APERCERRADO" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CAJERO">
+          <Key>
+            <PropertyRef Name="CAJRUT" />
+          </Key>
+          <Property Name="CAJRUT" Type="Int32" Nullable="false" />
+          <Property Name="CAJNOMBRE" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="CAJAPATERNO" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="CAJAMATERNO" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="CAJESTADO" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CLASE">
+          <Key>
+            <PropertyRef Name="CLASEID" />
+          </Key>
+          <Property Name="NATSID" Type="Int32" Nullable="false" />
+          <Property Name="CLASEID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CLASENOMBRE" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="COMPRA_DETALLE">
+          <Key>
+            <PropertyRef Name="COMDETID" />
+          </Key>
+          <Property Name="COMDETID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="COMPID" Type="Int32" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="Int32" Nullable="false" />
+          <Property Name="COMPCANTIDAD" Type="Decimal" Nullable="false" Precision="5" Scale="1" />
+          <Property Name="COMPCODIGOBARRA" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="COMPMONTOLINEA" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMPRAS">
+          <Key>
+            <PropertyRef Name="COMPID" />
+          </Key>
+          <Property Name="COMPID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PROVRUT" Type="String" Nullable="false" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="CAJRUT" Type="Int32" Nullable="false" />
+          <Property Name="COMFECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="COMPFORMAPAGO" Type="Byte" Nullable="false" />
+          <Property Name="COMPNUMDOCTO" Type="Int64" Nullable="false" />
+          <Property Name="COMPMONTO" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INVENTARIO">
+          <Key>
+            <PropertyRef Name="INVNUMERO" />
+          </Key>
+          <Property Name="INVNUMERO" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CAJRUT" Type="Int32" Nullable="false" />
+          <Property Name="INVFECHA" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="INVENTARIO_DETALLE">
+          <Key>
+            <PropertyRef Name="INVLINEA" />
+          </Key>
+          <Property Name="INVLINEA" Type="Int32" Nullable="false" />
+          <Property Name="INVNUMERO" Type="Int32" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="Int32" Nullable="false" />
+          <Property Name="INVCANTIDAD" Type="Decimal" Nullable="false" Precision="5" Scale="1" />
+          <Property Name="INVCODIGOBARRA" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MOVIMIENTOS">
+          <Key>
+            <PropertyRef Name="MOVNUMERO" />
+          </Key>
+          <Property Name="MOVNUMERO" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="APERNUM" Type="Int32" Nullable="false" />
+          <Property Name="MOVTIPO" Type="Int32" Nullable="false" />
+          <Property Name="MOVNUMDOCUMENTO" Type="Int32" />
+          <Property Name="MOVTIPODOCTO" Type="Int32" />
+          <Property Name="MOVMONTO" Type="Int32" Nullable="false" />
+          <Property Name="MOVOBSERVACIONES" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="NATURALEZA">
+          <Key>
+            <PropertyRef Name="NATSID" />
+          </Key>
+          <Property Name="NATSID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="NATNOMBRE" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="PRIVILEGIOS">
+          <Key>
+            <PropertyRef Name="PRICODIGO" />
+          </Key>
+          <Property Name="PRICODIGO" Type="Int32" Nullable="false" />
+          <Property Name="PRINOMBRE" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="PROVEEDORES">
+          <Key>
+            <PropertyRef Name="PROVRUT" />
+          </Key>
+          <Property Name="PROVRUT" Type="String" Nullable="false" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="PROVRAZON" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PROVDIRECCION" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
+          <Property Name="PROVTELEFONO" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="PROVEMAIL" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PROVVENDEDOR" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="PROVFONOVENDEDOR" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SALIDAPRODUCTOS">
+          <Key>
+            <PropertyRef Name="SALID" />
+          </Key>
+          <Property Name="SALID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SALFECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CAJRUT" Type="Int32" Nullable="false" />
+          <Property Name="PRODCODIGO" Type="Int32" Nullable="false" />
+          <Property Name="SALCODBARRA" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="SALCANTIDAD" Type="Decimal" Nullable="false" Precision="5" Scale="1" />
+          <Property Name="SALOBSERVACION" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SUBCLASE">
+          <Key>
+            <PropertyRef Name="SUBCLAID" />
+          </Key>
+          <Property Name="NATSID" Type="Int32" Nullable="false" />
+          <Property Name="CLASEID" Type="Int32" Nullable="false" />
+          <Property Name="SUBCLAID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SUBCLANOMBRE" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TIPOPAGO">
+          <Key>
+            <PropertyRef Name="TIPPAGOID" />
+          </Key>
+          <Property Name="TIPPAGOID" Type="Byte" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="TIPPAGNOMBRE" Type="String" Nullable="false" MaxLength="25" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="CAJRUT" />
+          </Key>
+          <Property Name="CAJRUT" Type="Int32" Nullable="false" />
+          <Property Name="PRICODIGO" Type="Int32" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="USERESTADO" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VENTA_DETALLE">
+          <Key>
+            <PropertyRef Name="VENTADETID" />
+          </Key>
+          <Property Name="VENTADETID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="VENTAID" Type="Int64" Nullable="false" />
+          <Property Name="VENTLINEA" Type="Int32" Nullable="false" />
+          <Property Name="VENTCANTIDAD" Type="Decimal" Nullable="false" Precision="5" Scale="1" />
+          <Property Name="PRODCODIGO" Type="Int32" Nullable="false" />
+          <Property Name="VENTCODBARRA" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="VENTTOTLINEA" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VENTAS">
+          <Key>
+            <PropertyRef Name="VENTAID" />
+          </Key>
+          <Property Name="VENTAID" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="TIPPAGOID" Type="Byte" Nullable="false" />
+          <Property Name="CAJRUT" Type="Int32" Nullable="false" />
+          <Property Name="VENBOLETANUM" Type="Int32" Nullable="false" />
+          <Property Name="VENTFECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VENTOTAL" Type="Int32" Nullable="false" />
+          <Property Name="VENTACANCELADO" Type="Int32" Nullable="false" />
+          <Property Name="VENTAVUELTO" Type="Int32" Nullable="false" />
+          <Property Name="VENBOUCHER" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Naturaleza_Clase">
+          <Key>
+            <PropertyRef Name="NATSID" />
+            <PropertyRef Name="CLASEID" />
+            <PropertyRef Name="CLASENOMBRE" />
+            <PropertyRef Name="NATNOMBRE" />
+          </Key>
+          <Property Type="Int32" Name="NATSID" Nullable="false" />
+          <Property Type="Int32" Name="CLASEID" Nullable="false" />
+          <Property Type="String" Name="CLASENOMBRE" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NATNOMBRE" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTOS">
+          <Key>
+            <PropertyRef Name="PRODCODIGO" />
+          </Key>
+          <Property Type="Int32" Name="NATSID" Nullable="false" />
+          <Property Type="Int32" Name="CLASEID" Nullable="false" />
+          <Property Type="Int32" Name="SUBCLAID" Nullable="false" />
+          <Property Type="Int32" Name="PRODCODIGO" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PRODNOMBRE" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PRODPRECIO" />
+          <Property Type="String" Name="PRODCODIGOBARRA" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="PRODSTOCKINICIAL" Nullable="false" Precision="5" Scale="1" />
+          <Property Type="Decimal" Name="PRODSTOCKACTUAL" Nullable="false" Precision="5" Scale="1" />
+          <Property Type="Boolean" Name="PRODINVENTARIABLE" Nullable="false" />
+          <Property Type="Boolean" Name="PRODCONPRECIO" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UNIDAD_MEDIDA">
+          <Key>
+            <PropertyRef Name="UMCODIGO" />
+          </Key>
+          <Property Name="UMCODIGO" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UMNOMBRE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UNIDAD_MEDIDA1" Relationship="SisVentasModel.FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA" FromRole="UNIDAD_MEDIDA" ToRole="UNIDAD_MEDIDA1" />
+          <NavigationProperty Name="UNIDAD_MEDIDA2" Relationship="SisVentasModel.FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA" FromRole="UNIDAD_MEDIDA1" ToRole="UNIDAD_MEDIDA" />
+        </EntityType>
+        <EntityType Name="ProductosListados">
+          <Key>
+            <PropertyRef Name="CodNat" />
+            <PropertyRef Name="CodClase" />
+            <PropertyRef Name="CodSubClase" />
+            <PropertyRef Name="CodProducto" />
+            <PropertyRef Name="Producto" />
+            <PropertyRef Name="CodBarra" />
+            <PropertyRef Name="StockInicial" />
+            <PropertyRef Name="StockActual" />
+            <PropertyRef Name="Inventariable" />
+            <PropertyRef Name="Naturaleza" />
+            <PropertyRef Name="Clase" />
+            <PropertyRef Name="SubClase" />
+          </Key>
+          <Property Name="CodNat" Type="Int32" Nullable="false" />
+          <Property Name="CodClase" Type="Int32" Nullable="false" />
+          <Property Name="CodSubClase" Type="Int32" Nullable="false" />
+          <Property Name="CodProducto" Type="Int32" Nullable="false" />
+          <Property Name="Producto" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Int32" />
+          <Property Name="CodBarra" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StockInicial" Type="Decimal" Nullable="false" Precision="5" Scale="1" />
+          <Property Name="StockActual" Type="Decimal" Nullable="false" Precision="5" Scale="1" />
+          <Property Name="Inventariable" Type="Boolean" Nullable="false" />
+          <Property Name="Naturaleza" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Clase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubClase" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_UNIDAD_MEDIDA_UNIDAD_MEDIDA">
+          <End Type="SisVentasModel.UNIDAD_MEDIDA" Role="UNIDAD_MEDIDA" Multiplicity="1" />
+          <End Type="SisVentasModel.UNIDAD_MEDIDA" Role="UNIDAD_MEDIDA1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UNIDAD_MEDIDA">
+              <PropertyRef Name="UMCODIGO" />
+            </Principal>
+            <Dependent Role="UNIDAD_MEDIDA1">
+              <PropertyRef Name="UMCODIGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SisVentasModelStoreContainer" CdmEntityContainer="SisVentasEntities">
+          <EntitySetMapping Name="APERTURACAJA">
+            <EntityTypeMapping TypeName="SisVentasModel.APERTURACAJA">
+              <MappingFragment StoreEntitySet="APERTURACAJA">
+                <ScalarProperty Name="APERNUM" ColumnName="APERNUM" />
+                <ScalarProperty Name="CAJANUMERO" ColumnName="CAJANUMERO" />
+                <ScalarProperty Name="CAJRUT" ColumnName="CAJRUT" />
+                <ScalarProperty Name="APERFECHA" ColumnName="APERFECHA" />
+                <ScalarProperty Name="APERMONTO" ColumnName="APERMONTO" />
+                <ScalarProperty Name="APERSALDO" ColumnName="APERSALDO" />
+                <ScalarProperty Name="APERCERRADO" ColumnName="APERCERRADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAJERO">
+            <EntityTypeMapping TypeName="SisVentasModel.CAJERO">
+              <MappingFragment StoreEntitySet="CAJERO">
+                <ScalarProperty Name="CAJESTADO" ColumnName="CAJESTADO" />
+                <ScalarProperty Name="CAJRUT" ColumnName="CAJRUT" />
+                <ScalarProperty Name="CAJNOMBRE" ColumnName="CAJNOMBRE" />
+                <ScalarProperty Name="CAJAPATERNO" ColumnName="CAJAPATERNO" />
+                <ScalarProperty Name="CAJAMATERNO" ColumnName="CAJAMATERNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLASE">
+            <EntityTypeMapping TypeName="SisVentasModel.CLASE">
+              <MappingFragment StoreEntitySet="CLASE">
+                <ScalarProperty Name="NATSID" ColumnName="NATSID" />
+                <ScalarProperty Name="CLASEID" ColumnName="CLASEID" />
+                <ScalarProperty Name="CLASENOMBRE" ColumnName="CLASENOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPRA_DETALLE">
+            <EntityTypeMapping TypeName="SisVentasModel.COMPRA_DETALLE">
+              <MappingFragment StoreEntitySet="COMPRA_DETALLE">
+                <ScalarProperty Name="COMDETID" ColumnName="COMDETID" />
+                <ScalarProperty Name="COMPID" ColumnName="COMPID" />
+                <ScalarProperty Name="PRODCODIGO" ColumnName="PRODCODIGO" />
+                <ScalarProperty Name="COMPCANTIDAD" ColumnName="COMPCANTIDAD" />
+                <ScalarProperty Name="COMPCODIGOBARRA" ColumnName="COMPCODIGOBARRA" />
+                <ScalarProperty Name="COMPMONTOLINEA" ColumnName="COMPMONTOLINEA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPRAS">
+            <EntityTypeMapping TypeName="SisVentasModel.COMPRAS">
+              <MappingFragment StoreEntitySet="COMPRAS">
+                <ScalarProperty Name="COMPID" ColumnName="COMPID" />
+                <ScalarProperty Name="PROVRUT" ColumnName="PROVRUT" />
+                <ScalarProperty Name="CAJRUT" ColumnName="CAJRUT" />
+                <ScalarProperty Name="COMFECHA" ColumnName="COMFECHA" />
+                <ScalarProperty Name="COMPFORMAPAGO" ColumnName="COMPFORMAPAGO" />
+                <ScalarProperty Name="COMPNUMDOCTO" ColumnName="COMPNUMDOCTO" />
+                <ScalarProperty Name="COMPMONTO" ColumnName="COMPMONTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVENTARIO">
+            <EntityTypeMapping TypeName="SisVentasModel.INVENTARIO">
+              <MappingFragment StoreEntitySet="INVENTARIO">
+                <ScalarProperty Name="INVNUMERO" ColumnName="INVNUMERO" />
+                <ScalarProperty Name="CAJRUT" ColumnName="CAJRUT" />
+                <ScalarProperty Name="INVFECHA" ColumnName="INVFECHA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVENTARIO_DETALLE">
+            <EntityTypeMapping TypeName="SisVentasModel.INVENTARIO_DETALLE">
+              <MappingFragment StoreEntitySet="INVENTARIO_DETALLE">
+                <ScalarProperty Name="INVLINEA" ColumnName="INVLINEA" />
+                <ScalarProperty Name="INVNUMERO" ColumnName="INVNUMERO" />
+                <ScalarProperty Name="PRODCODIGO" ColumnName="PRODCODIGO" />
+                <ScalarProperty Name="INVCANTIDAD" ColumnName="INVCANTIDAD" />
+                <ScalarProperty Name="INVCODIGOBARRA" ColumnName="INVCODIGOBARRA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MOVIMIENTOS">
+            <EntityTypeMapping TypeName="SisVentasModel.MOVIMIENTOS">
+              <MappingFragment StoreEntitySet="MOVIMIENTOS">
+                <ScalarProperty Name="MOVNUMERO" ColumnName="MOVNUMERO" />
+                <ScalarProperty Name="APERNUM" ColumnName="APERNUM" />
+                <ScalarProperty Name="MOVTIPO" ColumnName="MOVTIPO" />
+                <ScalarProperty Name="MOVNUMDOCUMENTO" ColumnName="MOVNUMDOCUMENTO" />
+                <ScalarProperty Name="MOVTIPODOCTO" ColumnName="MOVTIPODOCTO" />
+                <ScalarProperty Name="MOVMONTO" ColumnName="MOVMONTO" />
+                <ScalarProperty Name="MOVOBSERVACIONES" ColumnName="MOVOBSERVACIONES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NATURALEZA">
+            <EntityTypeMapping TypeName="SisVentasModel.NATURALEZA">
+              <MappingFragment StoreEntitySet="NATURALEZA">
+                <ScalarProperty Name="NATSID" ColumnName="NATSID" />
+                <ScalarProperty Name="NATNOMBRE" ColumnName="NATNOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRIVILEGIOS">
+            <EntityTypeMapping TypeName="SisVentasModel.PRIVILEGIOS">
+              <MappingFragment StoreEntitySet="PRIVILEGIOS">
+                <ScalarProperty Name="PRICODIGO" ColumnName="PRICODIGO" />
+                <ScalarProperty Name="PRINOMBRE" ColumnName="PRINOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROVEEDORES">
+            <EntityTypeMapping TypeName="SisVentasModel.PROVEEDORES">
+              <MappingFragment StoreEntitySet="PROVEEDORES">
+                <ScalarProperty Name="PROVRUT" ColumnName="PROVRUT" />
+                <ScalarProperty Name="PROVRAZON" ColumnName="PROVRAZON" />
+                <ScalarProperty Name="PROVDIRECCION" ColumnName="PROVDIRECCION" />
+                <ScalarProperty Name="PROVTELEFONO" ColumnName="PROVTELEFONO" />
+                <ScalarProperty Name="PROVEMAIL" ColumnName="PROVEMAIL" />
+                <ScalarProperty Name="PROVVENDEDOR" ColumnName="PROVVENDEDOR" />
+                <ScalarProperty Name="PROVFONOVENDEDOR" ColumnName="PROVFONOVENDEDOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SALIDAPRODUCTOS">
+            <EntityTypeMapping TypeName="SisVentasModel.SALIDAPRODUCTOS">
+              <MappingFragment StoreEntitySet="SALIDAPRODUCTOS">
+                <ScalarProperty Name="SALID" ColumnName="SALID" />
+                <ScalarProperty Name="SALFECHA" ColumnName="SALFECHA" />
+                <ScalarProperty Name="CAJRUT" ColumnName="CAJRUT" />
+                <ScalarProperty Name="PRODCODIGO" ColumnName="PRODCODIGO" />
+                <ScalarProperty Name="SALCODBARRA" ColumnName="SALCODBARRA" />
+                <ScalarProperty Name="SALCANTIDAD" ColumnName="SALCANTIDAD" />
+                <ScalarProperty Name="SALOBSERVACION" ColumnName="SALOBSERVACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBCLASE">
+            <EntityTypeMapping TypeName="SisVentasModel.SUBCLASE">
+              <MappingFragment StoreEntitySet="SUBCLASE">
+                <ScalarProperty Name="NATSID" ColumnName="NATSID" />
+                <ScalarProperty Name="CLASEID" ColumnName="CLASEID" />
+                <ScalarProperty Name="SUBCLAID" ColumnName="SUBCLAID" />
+                <ScalarProperty Name="SUBCLANOMBRE" ColumnName="SUBCLANOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOPAGO">
+            <EntityTypeMapping TypeName="SisVentasModel.TIPOPAGO">
+              <MappingFragment StoreEntitySet="TIPOPAGO">
+                <ScalarProperty Name="TIPPAGOID" ColumnName="TIPPAGOID" />
+                <ScalarProperty Name="TIPPAGNOMBRE" ColumnName="TIPPAGNOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="SisVentasModel.USUARIOS">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="USERESTADO" ColumnName="USERESTADO" />
+                <ScalarProperty Name="CAJRUT" ColumnName="CAJRUT" />
+                <ScalarProperty Name="PRICODIGO" ColumnName="PRICODIGO" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTA_DETALLE">
+            <EntityTypeMapping TypeName="SisVentasModel.VENTA_DETALLE">
+              <MappingFragment StoreEntitySet="VENTA_DETALLE">
+                <ScalarProperty Name="VENTADETID" ColumnName="VENTADETID" />
+                <ScalarProperty Name="VENTAID" ColumnName="VENTAID" />
+                <ScalarProperty Name="VENTLINEA" ColumnName="VENTLINEA" />
+                <ScalarProperty Name="VENTCANTIDAD" ColumnName="VENTCANTIDAD" />
+                <ScalarProperty Name="PRODCODIGO" ColumnName="PRODCODIGO" />
+                <ScalarProperty Name="VENTCODBARRA" ColumnName="VENTCODBARRA" />
+                <ScalarProperty Name="VENTTOTLINEA" ColumnName="VENTTOTLINEA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTAS">
+            <EntityTypeMapping TypeName="SisVentasModel.VENTAS">
+              <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="VENTAID" ColumnName="VENTAID" />
+                <ScalarProperty Name="TIPPAGOID" ColumnName="TIPPAGOID" />
+                <ScalarProperty Name="CAJRUT" ColumnName="CAJRUT" />
+                <ScalarProperty Name="VENBOLETANUM" ColumnName="VENBOLETANUM" />
+                <ScalarProperty Name="VENTFECHA" ColumnName="VENTFECHA" />
+                <ScalarProperty Name="VENTOTAL" ColumnName="VENTOTAL" />
+                <ScalarProperty Name="VENTACANCELADO" ColumnName="VENTACANCELADO" />
+                <ScalarProperty Name="VENTAVUELTO" ColumnName="VENTAVUELTO" />
+                <ScalarProperty Name="VENBOUCHER" ColumnName="VENBOUCHER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Naturaleza_Clase">
+            <EntityTypeMapping TypeName="SisVentasModel.Naturaleza_Clase">
+              <MappingFragment StoreEntitySet="Naturaleza_Clase">
+                <ScalarProperty Name="NATNOMBRE" ColumnName="NATNOMBRE" />
+                <ScalarProperty Name="CLASENOMBRE" ColumnName="CLASENOMBRE" />
+                <ScalarProperty Name="CLASEID" ColumnName="CLASEID" />
+                <ScalarProperty Name="NATSID" ColumnName="NATSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTOS">
+            <EntityTypeMapping TypeName="SisVentasModel.PRODUCTOS">
+              <MappingFragment StoreEntitySet="PRODUCTOS">
+                <ScalarProperty Name="PRODCONPRECIO" ColumnName="PRODCONPRECIO" />
+                <ScalarProperty Name="PRODINVENTARIABLE" ColumnName="PRODINVENTARIABLE" />
+                <ScalarProperty Name="PRODSTOCKACTUAL" ColumnName="PRODSTOCKACTUAL" />
+                <ScalarProperty Name="PRODSTOCKINICIAL" ColumnName="PRODSTOCKINICIAL" />
+                <ScalarProperty Name="PRODCODIGOBARRA" ColumnName="PRODCODIGOBARRA" />
+                <ScalarProperty Name="PRODPRECIO" ColumnName="PRODPRECIO" />
+                <ScalarProperty Name="PRODNOMBRE" ColumnName="PRODNOMBRE" />
+                <ScalarProperty Name="PRODCODIGO" ColumnName="PRODCODIGO" />
+                <ScalarProperty Name="SUBCLAID" ColumnName="SUBCLAID" />
+                <ScalarProperty Name="CLASEID" ColumnName="CLASEID" />
+                <ScalarProperty Name="NATSID" ColumnName="NATSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UNIDAD_MEDIDA">
+            <EntityTypeMapping TypeName="SisVentasModel.UNIDAD_MEDIDA">
+              <MappingFragment StoreEntitySet="UNIDAD_MEDIDA">
+                <ScalarProperty Name="UMNOMBRE" ColumnName="UMNOMBRE" />
+                <ScalarProperty Name="UMCODIGO" ColumnName="UMCODIGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductosListados">
+            <EntityTypeMapping TypeName="SisVentasModel.ProductosListados">
+              <MappingFragment StoreEntitySet="ProductosListados">
+                <ScalarProperty Name="SubClase" ColumnName="SubClase" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="Naturaleza" ColumnName="Naturaleza" />
+                <ScalarProperty Name="Inventariable" ColumnName="Inventariable" />
+                <ScalarProperty Name="StockActual" ColumnName="StockActual" />
+                <ScalarProperty Name="StockInicial" ColumnName="StockInicial" />
+                <ScalarProperty Name="CodBarra" ColumnName="CodBarra" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="CodProducto" ColumnName="CodProducto" />
+                <ScalarProperty Name="CodSubClase" ColumnName="CodSubClase" />
+                <ScalarProperty Name="CodClase" ColumnName="CodClase" />
+                <ScalarProperty Name="CodNat" ColumnName="CodNat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>
